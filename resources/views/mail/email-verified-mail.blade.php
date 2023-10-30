@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Name:{{ $mailData['name'] }}</h1>
-    <a href="{{route('verify_email',['token'=>$mailData['token']])}}">Verify the email</a>
+    <a href="{{route('sub_admin.verify_email',['token'=>$mailData['token']])}}">Verify the email</a>
     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat, natus.</p>
 </body>
 </html>

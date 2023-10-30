@@ -7,10 +7,10 @@ use App\Mail\EmailVerifiedMail;
 use App\Models\Role;
 use App\Models\SubAdmin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-// use Mail;
+use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-
+use Mail;
 class SubAdminController extends Controller
 {
     public function register(){
@@ -37,8 +37,25 @@ class SubAdminController extends Controller
                return redirect()->route('sub_admin.register')->with('success','Account register please wait for account approval');
    
            }else{
-               return redirect()->route('seller.register')->withErrors($validator)->withInput($request->only(['email','name']));
+               return redirect()->route('sub_admin.register')->withErrors($validator)->withInput($request->only(['email','name']));
            }
+    }
+
+    public function verify_email($token){
+        $sub_admin = SubAdmin::where('token',$token)->first();
+
+        if($sub_admin){
+            $sub_admin->update(['email_verified' => 1,'token' => '']);
+            flash()->addSuccess('Email verification successfully now you can log in');
+            return redirect()->route('sub_admin.login');
+        }else{
+            flash()->addError('Email verification failed please try again');
+            return redirect()->route('sub_admin.register');
+
+        }
+
+
+        
     }
 
     public function login(){
@@ -46,14 +63,23 @@ class SubAdminController extends Controller
     }
 
     public function authenticate(Request $request){
-       $validator = Validator::make($request->all(),[
-        'email' => 'required|email',
-        'password' => 'required',
-       ]);
+        $validator = Validator::make($request->all(),[
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        if($validator->passes()){
 
-       if($validator->passes()){
-
+            if(Auth::attempt(['email'=> $request->email, 'password' => $request->password],$request->get('remember'))){
+           $user = auth()->user();
+           dd($user);
+ 
+        }else{
+            auth()->logout();
+            dd("okay");
+        }
     }else{
-        return redirect()->route('login')->withErrors($validator)->withInput($request->only(['email']));
+        return redirect()->route('sub_admin.login')->withErrors($validator)->withInput($request->only(['email']));
     }
+}
+
 }

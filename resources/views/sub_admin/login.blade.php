@@ -24,7 +24,7 @@
               </div>
               <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
-                <form action="{{ route('authenticate') }}" method="post">
+                <form action="{{ route('sub_admin.authenticate') }}" method="post">
                     @csrf
                       <div class="input-group mb-3">
                         <input type="email" value="{{ old('email')}}" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email">
@@ -56,7 +56,7 @@
                     </form>
                     <div class="row">
                     <div class="col-md-12">
-                    <a href="{{route('register')}}">don't have an account?<button class="btn btn-primary btn-block">Sign Up</button></a>
+                    <a href="{{route('sub_admin.register')}}">don't have an account?<button class="btn btn-primary btn-block">Sign Up</button></a>
                     </div>
                     </div>
                   <p class="mb-1 mt-3">

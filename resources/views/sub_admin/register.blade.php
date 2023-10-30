@@ -24,7 +24,7 @@
               </div>
               <div class="card-body">
                 <p class="login-box-msg">Sign up to start your session</p>
-                <form action="{{ route('process') }}" method="post">
+                <form action="{{ route('sub_admin.process') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="text" name="name" value="{{old('name')}}" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Enter The Name">
@@ -93,7 +93,7 @@
                 </form>
                 <div class="row">
                   <div class="col-md-12 mt-3">
-                     <a href="{{route('login')}}">If you have login account<button class="btn btn-primary btn-block">Sign In</button></a>
+                     <a href="{{route('sub_admin.login')}}">If you have login account<button class="btn btn-primary btn-block">Sign In</button></a>
                   </div>
                 </div>
 

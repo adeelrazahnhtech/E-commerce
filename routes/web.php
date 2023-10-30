@@ -133,10 +133,13 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::group(['prefix' => 'sub_admin'],function(){
     route::group(['middleware' => 'sub_admin.guest'],function(){
-         Route::get('/register',[SubAdminController::class,'register'])->name('register');
-         Route::post('/register',[SubAdminController::class,'process'])->name('process');
-         Route::get('/login',[SubAdminController::class,'login'])->name('login');
-         Route::post('/login',[SubAdminController::class,'authenticate'])->name('authenticate');
+         Route::get('/register',[SubAdminController::class,'register'])->name('sub_admin.register');
+         Route::post('/register',[SubAdminController::class,'process'])->name('sub_admin.process');
+        //  verify_email
+        Route::get('/account-approved/{token}',[SubAdminController::class,'verify_email'])->name('sub_admin.verify_email');
+
+         Route::get('/login',[SubAdminController::class,'login'])->name('sub_admin.login');
+         Route::post('/login',[SubAdminController::class,'authenticate'])->name('sub_admin.authenticate');
 
     });
 });
