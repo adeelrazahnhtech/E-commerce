@@ -3,16 +3,26 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
-class SubAdmin extends Model
+
+
+class SubAdmin extends Authenticatable
 {
+    use  HasFactory;
 
     public function setPasswordAttribute($value){
         $this->attributes["password"] = Hash::make($value);
     }
-    use HasFactory;
+
+    public function reviews(){
+        return $this->morphMany('app\Review'::class,'reviewable');
+    }
+
+    
     protected $fillable = [
         'name',
         'email',
@@ -20,5 +30,20 @@ class SubAdmin extends Model
         'token',
         'password',
         'email_verified',
+    ];
+
+    
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'password' => 'hashed',
     ];
 }

@@ -62,24 +62,49 @@ class SubAdminController extends Controller
         return view('sub_admin.login');
     }
 
+    
+
     public function authenticate(Request $request){
         $validator = Validator::make($request->all(),[
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        if($validator->passes()){
 
-            if(Auth::attempt(['email'=> $request->email, 'password' => $request->password],$request->get('remember'))){
-           $user = auth()->user();
-           dd($user);
- 
+
+    if($validator->passes()){
+
+        if(Auth::guard('sub_admin')->attempt(['email'=> $request->email, 'password' => $request->password],$request->get('remember'))){
+           $user = auth()->guard('sub_admin')->user();
+           
+                if($user->role == 4 && $user->email_verified == 1){
+                    return redirect()->route('sub_admin.dashboard');
+
+                }else{
+                    auth('sub_admin')->logout();
+                    flash()->addErrors("you are not authorized to access the sub admin panel");
+                    return redirect()->route('sub_admin.login');
+
+                }
         }else{
-            auth()->logout();
-            dd("okay");
+            flash()->addError("Error: Invalid email/password");
+            return redirect()->route('sub_admin.login');
         }
+
     }else{
         return redirect()->route('sub_admin.login')->withErrors($validator)->withInput($request->only(['email']));
     }
-}
+
+
+    }
+
+    public function dashboard(){
+        return view('sub_admin.dashboard');
+    }
+
+    public function logout(){
+        auth()->guard('sub_admin')->logout();
+        flash()->addSuccess("Successfully you are logged out");
+        return redirect()->route('sub_admin.login');
+    }
 
 }

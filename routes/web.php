@@ -142,6 +142,13 @@ Route::group(['prefix' => 'sub_admin'],function(){
          Route::post('/login',[SubAdminController::class,'authenticate'])->name('sub_admin.authenticate');
 
     });
+
+    Route::group(['middleware'=> 'sub_admin.auth'],function(){
+        Route::get('/dashboard',[SubAdminController::class, 'dashboard'])->name('sub_admin.dashboard');
+        Route::get('/logout',[SubAdminController::class, 'logout'])->name('sub_admin.logout');
+
+        
+    });
 });
 
 //seller

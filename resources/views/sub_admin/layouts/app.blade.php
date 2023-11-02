@@ -12,11 +12,11 @@
 
     <!-- Theme style -->
 		<link rel="stylesheet" href="{{ asset('admin-assets/css/adminlte.min.css')}}">
-		{{-- <link rel="stylesheet" href="{{ asset('admin-assets/plugins/dropzone/min/dropzone.min.css')}}"> --}}
+		<!-- {{-- <link rel="stylesheet" href="{{ asset('admin-assets/plugins/dropzone/min/dropzone.min.css')}}"> --}}
         {{-- <link rel="stylesheet" href="{{ asset('admin-assets/plugins/summernote/summernote.min.css')}}"> --}}
         {{-- <link rel="stylesheet" href="{{ asset('admin-assets/plugins/select2/css/select2.min.css')}}"> --}}
         {{-- <link rel="stylesheet" href="{{ asset('admin-assets/css/datetimepicker.css')}}"> --}}
-		{{-- <link rel="stylesheet" href="{{ asset('admin-assets/css/custom.css')}}"> --}}
+		{{-- <link rel="stylesheet" href="{{ asset('admin-assets/css/custom.css')}}"> --}} -->
 
   </head>
 <body>
@@ -45,8 +45,8 @@
 							<img src="{{ asset('admin-assets/img/avatar5.png')}}" class='img-circle elevation-2' width="40" height="40" alt="">
 						</a>
 						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-3">
-							 <h4 class="h4 mb-0"><strong>{{ Auth::guard('admin')->user()->name}}</strong></h4> 
-							 <div class="mb-3">{{ Auth::guard('admin')->user()->email}}</div> 
+							 <h4 class="h4 mb-0"><strong>{{ Auth::guard('sub_admin')->user()->name}}</strong></h4> 
+							 <div class="mb-3">{{ Auth::guard('sub_admin')->user()->email}}</div> 
 							<div class="dropdown-divider"></div>
 							<a href="#" class="dropdown-item">
 								<i class="fas fa-user-cog mr-2"></i> Settings								
@@ -56,7 +56,7 @@
 								<i class="fas fa-lock mr-2"></i> Change Password
 							</a>
 							<div class="dropdown-divider"></div>
-							<a href="{{  route('admin.logout')  }}" class="dropdown-item text-danger">
+							<a href="{{  route('sub_admin.logout')  }}" class="dropdown-item text-danger">
 								<i class="fas fa-sign-out-alt mr-2"></i> Logout							
 							</a>							
 						</div>
@@ -66,7 +66,7 @@
 			<!-- /.navbar -->
 
       <!-- Main Sidebar Container -->
-      @extends('admin.layouts.sidebar')
+      @extends('sub_admin.layouts.sidebar')
 
      	<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
@@ -86,12 +86,12 @@
 		<!-- Bootstrap 4 -->
 		<script src="{{ asset('admin-assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
         		<!-- AdminLTE App -->
-		{{-- <script src="{{ asset('admin-assets/js/adminlte.min.js')}}"></script>
-		<script src="{{ asset('admin-assets/plugins/dropzone/min/dropzone.min.js')}}"></script> --}}
+		<!-- {{-- <script src="{{ asset('admin-assets/js/adminlte.min.js')}}"></script>
+		<script src="{{ asset('admin-assets/plugins/dropzone/min/dropzone.min.js')}}"></script> --}} -->
 		<!-- added new file for this product -->
-		{{-- <script src="{{ asset('admin-assets/plugins/summernote/summernote.min.js')}}"></script>  
+		<!-- {{-- <script src="{{ asset('admin-assets/plugins/summernote/summernote.min.js')}}"></script>  
 		<script src="{{ asset('admin-assets/plugins/select2/js/select2.min.js')}}"></script>  
-		<script src="{{ asset('admin-assets/js/datetimepicker.js')}}"></script>     jquery's date time picker for coupon code form or table --}}
+		<script src="{{ asset('admin-assets/js/datetimepicker.js')}}"></script>  jquery's date time picker for coupon code form or table -->
 
 		<!-- AdminLTE for demo purposes -->
 		<!-- {{-- <script src="{{ asset('admin-assets/js/demo.js')}}"></script> --}}
