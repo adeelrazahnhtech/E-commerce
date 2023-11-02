@@ -12,6 +12,7 @@ class SubAdmin extends Model
     public function setPasswordAttribute($value){
         $this->attributes["password"] = Hash::make($value);
     }
+
     use HasFactory;
     protected $fillable = [
         'name',
@@ -21,4 +22,5 @@ class SubAdmin extends Model
         'password',
         'email_verified',
     ];
+    
 }

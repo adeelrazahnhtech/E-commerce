@@ -16,7 +16,7 @@ class CheckPackage
      */
     public function handle(Request $request, Closure $next)
     {
-        $package = auth()->user()->packages()->orderByDesc('id')->first();
+        $package = auth()->user()->packages->orderByDesc('id')->first();
 
         if ($package) {
             $createdAt = Carbon::parse($package->pivot->created_at);

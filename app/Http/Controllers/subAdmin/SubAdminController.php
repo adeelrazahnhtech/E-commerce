@@ -8,9 +8,9 @@ use App\Models\Role;
 use App\Models\SubAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use Mail;
+// use Mail;
 class SubAdminController extends Controller
 {
     public function register(){
@@ -69,12 +69,14 @@ class SubAdminController extends Controller
         ]);
         if($validator->passes()){
 
-            if(Auth::attempt(['email'=> $request->email, 'password' => $request->password],$request->get('remember'))){
-           $user = auth()->user();
+            if(Auth::guard('sub_admin')->attempt([
+            'email'=> $request->email,
+            'password' => $request->password])){
+           $user = auth()->guard('sub_admin')->user();
            dd($user);
  
         }else{
-            auth()->logout();
+            auth()->guard('sub_admin')->logout();
             dd("okay");
         }
     }else{

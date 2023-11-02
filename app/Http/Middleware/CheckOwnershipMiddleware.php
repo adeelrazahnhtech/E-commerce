@@ -15,7 +15,7 @@ class CheckOwnershipMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $product = auth('seller')->user()->products()->find(request()->product);
+        $product = auth('seller')->user()->products->find(request()->product);
         if(!$product) return back()->with('error','Unauthorized');
         // if(!$product) return abort(403);
         return $next($request);
