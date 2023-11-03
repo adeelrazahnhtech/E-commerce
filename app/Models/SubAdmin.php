@@ -22,6 +22,11 @@ class SubAdmin extends Authenticatable
         return $this->morphMany('App\\Models\\Review'::class,'reviewable');
     }
 
+    public function products()
+    {
+        return $this->hasMany(Product::class,  'sub_admin_id','id');
+    }
+
     
     protected $fillable = [
         'name',

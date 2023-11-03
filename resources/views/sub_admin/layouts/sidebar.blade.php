@@ -38,12 +38,12 @@
                     </a>
                 </li> --}}
 
-                {{-- <li class="nav-item">
-                    <a href="{{ route('sub_admin.products.index')}}" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{ ('sub_admin.products.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-tag"></i>
                         <p>Products</p>
                     </a>
-                </li> --}}
+                </li>
                 
             {{--    <li class="nav-item">
                     <a href="{{('shipping.create')}}" class="nav-link">

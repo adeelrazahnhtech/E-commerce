@@ -122,8 +122,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::delete('/packages/{package}', [PackageController::class, 'destroy'])->name('packages.delete');
 
         //reviews
-        Route::get('/user-review/{review}',[UserReviewController::class,'admin_create'])->name('admin.give_review');
-        Route::post('/user-review',[UserReviewController::class,'store'])->name('admin.review.process');
+        Route::get('/admin-review/{review}',[UserReviewController::class,'admin_create'])->name('admin.give_review');
+        Route::post('/admin-review',[UserReviewController::class,'store'])->name('admin.review.process');
 
         Route::get('/reviews', [UserReviewController::class, 'adminReview'])->name('admin.reviews');
         Route::get('/reviews/create', [UserReviewController::class, 'create'])->name('reviews.create');
@@ -153,6 +153,15 @@ Route::group(['prefix' => 'sub_admin'],function(){
         Route::get('/dashboard',[SubAdminController::class, 'dashboard'])->name('sub_admin.dashboard');
         Route::get('/logout',[SubAdminController::class, 'logout'])->name('sub_admin.logout');
 
+        //product
+        Route::get('/products', [ProductController::class, 'subAdminIndex'])->name('sub_admin.product.index');
+        Route::get('/products/create',[ProductController::class,'subAdminCreate'])->name('sub_admin.product.create');
+        Route::post('/products',[ProductController::class, 'store'])->name('sub_admin.products.store');
+
+        //review
+        
+        Route::get('/sub-admin-review/{review}',[UserReviewController::class,'subAdminCreate'])->name('sub_admin.give_review');
+        Route::post('/sub-admin-review',[UserReviewController::class,'store'])->name('sub_admin.review.process');
         
     });
 });
@@ -184,6 +193,11 @@ Route::group(['prefix' => 'seller'], function () {
         Route::get('/products/{product}/edit', [ProductController::class, 'seller_edit'])->name('seller.products.edit');
         Route::put('/products/{product}', [ProductController::class, 'update'])->name('seller.products.update');
         Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('seller.products.delete');
+
+        //review   
+        Route::get('/seller-review/{review}',[UserReviewController::class,'seller_create'])->name('seller.give_review');
+        Route::post('/seller-review',[UserReviewController::class,'store'])->name('seller.review.process');
+
 
 
 

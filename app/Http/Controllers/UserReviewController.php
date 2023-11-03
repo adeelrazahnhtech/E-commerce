@@ -51,6 +51,19 @@ class UserReviewController extends Controller
 
     }
 
+    public function seller_create($productId){
+      $product =  Product::find($productId);
+      return view('seller.review.create',compact('product'));
+
+    }
+
+    
+    public function subAdminCreate($productId){
+        $product =  Product::find($productId);
+        return view('sub_admin.review.create',compact('product'));
+  
+      }
+
 
     public function create($productId){
             $product = Product::with('orders')->find($productId);
@@ -62,21 +75,43 @@ class UserReviewController extends Controller
             'rating' => 'required',
             'review' => 'required|min:3',
             'product_id' => 'required',
-            // 'user_id' => 'required',
         ]);
-        // dd($request->all());
-
-        
         if($validator->passes()){
             $validatedData = $validator->validated();
-            // dd($validatedData);
+            if (auth('admin')->check())
+            {
+                $userRole = auth('admin')->user()->role;
+                $user = auth('admin')->user();
+                
+            }elseif (auth('sub_admin')->check()) 
+            {
+                $userRole = auth('sub_admin')->user()->role;
+                $user = auth('sub_admin')->user();
+                
+            }elseif (auth('seller')->check()){
+                $userRole = auth('seller')->user()->role;
+                $user = auth('seller')->user();
+
+            }
+
+
+            $reviewableType = 'App\\Models\\' . $userRole;
+            $validatedData['reviewable_id'] = $user->id;
             
-            $reviewableType = 'App\\Models\\' . auth()->user()->role;
-            $validatedData['reviewable_id'] = auth()->id();
             $validatedData['reviewable_type'] = $reviewableType;
             $review = Review::create($validatedData);
-            flash()->addSuccess('Successfully review added');
-            return redirect()->route('admin.reviews');
+
+            if(auth('admin')->check()){
+                flash()->addSuccess('Successfully review added');
+            return redirect()->route('products.index');
+            }elseif (auth('sub_admin')->check()){
+                flash()->addSuccess('Successfully review added');
+            return redirect()->route('sub_admin.product.index');
+            }elseif (auth('seller')->check()){
+                flash()->addSuccess('Successfully review added');
+            return redirect()->route('seller.products.index');
+            }
+          
         }else{
             return redirect()->back()->withErrors($validator)->withInput();
         }

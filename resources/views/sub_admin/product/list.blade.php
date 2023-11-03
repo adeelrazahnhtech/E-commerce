@@ -1,4 +1,4 @@
-@extends('seller.layouts.app')
+@extends('sub_admin.layouts.app')
 
 @section('content')
 <section class="content-header">
@@ -8,7 +8,7 @@
             <h1>Products</h1>
         </div>
         <div class="col-sm-6 text-right">
-                 <a href="{{route('seller.products.create')}}"><button class="btn btn-primary">Add</button></a>       
+                 <a href="{{route('sub_admin.product.create')}}"><button class="btn btn-primary">Add</button></a>       
          </div>
     
     </div>
@@ -41,11 +41,11 @@
                     <td>{{($product->status == 1 ) ? 'Yes' : 'No' }}</td>
                     <td style="display: flex;">
                         {{-- @if (!auth('seller')->user()->review) --}}
-                        <a href="{{route('seller.give_review',$product->id)}}"><button class="btn btn-sm btn-success">Write a Review</button></a>  
+                        <a href="{{route('sub_admin.give_review',$product->id)}}"><button class="btn btn-sm btn-success">Write a Review</button></a>  
                         {{-- @endif --}}
 
-                        <a href="{{route('seller.products.edit',$product->id)}}"><button class="btn btn-sm btn-secondary">Edit</button></a>
-                   <form action="{{route('products.delete',$product->id)}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product')">
+                        <a href="{{('seller.products.edit')}}"><button class="btn btn-sm btn-secondary">Edit</button></a>
+                   <form action="{{('products.delete')}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product')">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-sm btn-danger">Delete</button> 

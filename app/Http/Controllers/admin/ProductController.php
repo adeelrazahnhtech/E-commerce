@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\SubAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,6 +27,12 @@ class ProductController extends Controller
     return view('seller.product.list', compact('products'));
   }
 
+  public function subAdminIndex(){
+    $products = auth('sub_admin')->user()->products;
+    return view('sub_admin.product.list', compact('products'));
+
+  }
+
   public function create()
   {
     $categories = Category::orderBy('name', 'ASC')->get();
@@ -44,6 +51,14 @@ class ProductController extends Controller
     return view('seller.product.create', $data);
   }
 
+
+  public function subAdminCreate(){
+    $categories = Category::orderBy('name', 'ASC')->get();
+    $data['categories'] = $categories;
+
+    return view('sub_admin.product.create', $data);
+  }
+
   public function store(Request $request)
   {
     $validator = Validator::make($request->all(), [
@@ -56,18 +71,33 @@ class ProductController extends Controller
       // 'seller_id'   => 'required',
         ]);
 
+
         
         
         $validatedData = $validator->validated();
-        
         if ($validator->passes()) {
-          
-          $validatedData['seller_id'] = auth('seller')->check() ? auth('seller')->id() : $request->seller_id;
-          // dd($validatedData);
+          if(auth('seller')->check()){
+            $validatedData['seller_id'] =  auth('seller')->id();
+            
+          }elseif(auth('sub_admin')->check()){
+            $validatedData['sub_admin_id'] = auth('sub_admin')->id();
+          }else{
+            $validatedData['seller_id'] = auth('seller')->check() ? auth('seller')->id() : $request->seller_id;
+          }
       $product = Product::create($validatedData);
     
-      if(auth('seller')->check()) return redirect()->route('seller.products.index')->with('success', 'Product created successfully');
-      return redirect()->route('products.index')->with('success', 'Product created successfully');
+      if(auth('seller')->check())
+      {
+        flash()->addSuccess('Successfully product created');
+        return redirect()->route('seller.products.index');
+      } 
+      elseif(auth('sub_admin')->check())
+      {
+        flash()->addSuccess('Successfully product created');
+        return redirect()->route('sub_admin.product.index');
+      } 
+      flash()->addSuccess('Product created successfully');
+      return redirect()->route('products.index');
 
     } else {
       return redirect()->back()->withErrors($validator)->withInput();
