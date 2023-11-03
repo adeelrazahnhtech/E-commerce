@@ -8,9 +8,9 @@ use App\Models\Role;
 use App\Models\SubAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use Mail;
+// use Mail;
 class SubAdminController extends Controller
 {
     public function register(){

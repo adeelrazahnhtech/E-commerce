@@ -126,6 +126,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/user-review',[UserReviewController::class,'store'])->name('admin.review.process');
 
         Route::get('/reviews', [UserReviewController::class, 'adminReview'])->name('admin.reviews');
+        Route::get('/reviews/create', [UserReviewController::class, 'create'])->name('reviews.create');
+
         Route::get('/reviews-approved/{review}', [UserReviewController::class, 'approve'])->name('review.approved');
         Route::get('/reviews-disapproved/{review}', [UserReviewController::class, 'disapprove'])->name('review.disapproved');
         
