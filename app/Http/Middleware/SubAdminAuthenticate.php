@@ -4,7 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Auth\Factory as AuthFactory;
+
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class SubAdminAuthenticate
@@ -17,8 +18,8 @@ class SubAdminAuthenticate
     
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$this->auth->guard('sub_admin')->check()) {
-            return redirect()->route('sub_admin.login');
+        if (!auth('sub_admin')->check()) {
+            return redirect()->back();
         }
         return $next($request);
 

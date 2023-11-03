@@ -122,6 +122,8 @@ Route::group(['prefix' => 'admin'], function () {
 
         //reviews
         Route::get('/reviews', [UserReviewController::class, 'adminReview'])->name('admin.reviews');
+        Route::get('/reviews/create', [UserReviewController::class, 'create'])->name('reviews.create');
+
         Route::get('/reviews-approved/{review}', [UserReviewController::class, 'approve'])->name('review.approved');
         Route::get('/reviews-disapproved/{review}', [UserReviewController::class, 'disapprove'])->name('review.disapproved');
         
@@ -141,6 +143,13 @@ Route::group(['prefix' => 'sub_admin'],function(){
          Route::get('/login',[SubAdminController::class,'login'])->name('sub_admin.login');
          Route::post('/login',[SubAdminController::class,'authenticate'])->name('sub_admin.authenticate');
 
+    });
+
+    Route::group(['middleware'=> 'sub_admin.auth'],function(){
+        Route::get('/dashboard',[SubAdminController::class, 'dashboard'])->name('sub_admin.dashboard');
+        Route::get('/logout',[SubAdminController::class, 'logout'])->name('sub_admin.logout');
+
+        
     });
 });
 

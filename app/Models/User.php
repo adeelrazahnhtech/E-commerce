@@ -28,17 +28,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Package::class, 'userpackages', 'user_id', 'package_id')->withPivot('created_at');
     }
-    // public function reviews()
-    // {
-    //     return $this->hasMany(Review::class, 'user_id', 'id');
-    // }
+
+  
     public function orders()
     {
         return $this->hasMany(Order::class, 'user_id', 'id');
     }
 
     public function reviews(){
-        return $this->morphMany(Review::class,'reviewable');
+        return $this->morphMany('app\Review'::class,'reviewable');
     }
 
     /**

@@ -7,9 +7,9 @@
         <div class="col-sm-6">
             <h1>Reviews</h1>
         </div>
-        {{-- <div class="col-sm-6 text-right">
+         <div class="col-sm-6 text-right">
                  <a href="{{route('reviews.create')}}"><button class="btn btn-primary">Add</button></a>       
-         </div> --}}
+         </div> 
     
     </div>
     </div>
