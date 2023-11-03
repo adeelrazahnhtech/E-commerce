@@ -40,12 +40,13 @@
                     <td>{{$product->seller->name}}</td>
                     <td>{{$product->track_qty}}</td>
                     <td>{{($product->status == 1 ) ? 'Yes' : 'No' }}</td>
-                    <td style="display: flex;">
-                        <a href="{{route('products.edit',$product->id)}}"><button class="btn btn-secondary">Edit</button></a>
+                    <td style="display: flex; margin-right:20px;">
+                    <a href="{{route('admin.give_review',$product->id)}}"><button class="btn btn-sm btn-success">Write a Review</button></a>  
+                        <a href="{{route('products.edit',$product->id)}}"><button class="btn btn-sm btn-secondary">Edit</button></a>
                    <form action="{{route('products.delete',$product->id)}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product')">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-danger">Delete</button> 
+                    <button class="btn btn-sm btn-danger">Delete</button> 
                    </form>
                     </td>
                 </tr>

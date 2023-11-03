@@ -12,7 +12,10 @@ class Review extends Model
     protected $fillable = [
         'rating',
         'review',
-        'user_id',
+        // 'user_id',
+        'product_id',
+        'reviewable_type',
+        'reviewable_id',
         'status',
     ];
     //defines the polymorphic reltionship in the review model

@@ -36,7 +36,7 @@ class User extends Authenticatable
     }
 
     public function reviews(){
-        return $this->morphMany('app\Review'::class,'reviewable');
+        return $this->morphMany('App\\Models\\Review'::class,'reviewable');
     }
 
     /**
@@ -75,12 +75,12 @@ class User extends Authenticatable
 
     // ACCESSOR
     protected $appends = ['order','review'];
-    public function getOrderAttribute()   // accessor for single product
-    {
-        return auth()->user()->orders->whereHas('products', fn($q) => $q->where('product_id', request()->product))->exists();
-    }
+    // public function getOrderAttribute()   // accessor for single product
+    // {
+    //     return auth()->user()->orders->whereHas('products', fn($q) => $q->where('product_id', request()->product))->exists();
+    // }
 
-    public function getReviewAttribute(){
-        return auth()->user()->reviews->where('product_id', request()->product)->exists();
-    }
+    // public function getReviewAttribute(){
+    //     return auth()->user()->reviews->where('product_id', request()->product)->exists();
+    // }
 }

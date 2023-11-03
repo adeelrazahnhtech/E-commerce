@@ -19,7 +19,7 @@ class SubAdmin extends Authenticatable
     }
 
     public function reviews(){
-        return $this->morphMany('app\Review'::class,'reviewable');
+        return $this->morphMany('App\\Models\\Review'::class,'reviewable');
     }
 
     

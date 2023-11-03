@@ -7,9 +7,9 @@
         <div class="col-sm-6">
             <h1>Reviews</h1>
         </div>
-         <div class="col-sm-6 text-right">
-                 <a href="{{route('reviews.create')}}"><button class="btn btn-primary">Add</button></a>       
-         </div> 
+         <!-- <div class="col-sm-6 text-right">
+                 <a href="{{('reviews.create')}}"><button class="btn btn-primary">Add</button></a>       
+         </div>  -->
     
     </div>
     </div>
@@ -21,7 +21,8 @@
             <div class="col-md-12">
           <table class="table table-striped">
             <tr>
-                <th>User</th>
+                <th>Name</th>
+                <th>Role</th>
                 <th>Product</th>
                 <th>Rating</th>
                 <th>Review</th>
@@ -30,9 +31,16 @@
             </tr>
             @if (!empty($reviews))
             @foreach ($reviews as $review)
+            @if ($review->reviewable_id)
+              @php
+              $user = App\Models\User::find($review->reviewable_id);
+              $role = App\Models\Role::find($user->role); 
+              @endphp
+               @endif
                 <tr>
-                    <td>{{$review->user->name}}</td>
-                    <td>{{$review->product->title}}</td>
+                    <td>{{$user->name}}</td>
+                    <td>{{$role->role_type}}</td>
+                    <td>{{$review->product_id}}</td>
                     <td>{{$review->rating}}</td>
                     <td>{{$review->review}}</td>
                     <td>
