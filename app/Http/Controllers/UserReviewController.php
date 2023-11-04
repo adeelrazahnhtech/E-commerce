@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class UserReviewController extends Controller
 {
     public function adminReview(){
-    //    $reviews = Review::with('product')->get();
-                  $reviews =    Review::get();
-                //   $role = Role::find();
+        $reviews = Review::with('reviewable.user_role','product')->get();
        return view("admin.review.list",compact("reviews"));
     }
 
@@ -76,39 +74,32 @@ class UserReviewController extends Controller
             'review' => 'required|min:3',
             'product_id' => 'required',
         ]);
+
+
         if($validator->passes()){
             $validatedData = $validator->validated();
+
             if (auth('admin')->check())
             {
-                $userRole = auth('admin')->user()->role;
                 $user = auth('admin')->user();
                 
             }elseif (auth('sub_admin')->check()) 
             {
-                $userRole = auth('sub_admin')->user()->role;
                 $user = auth('sub_admin')->user();
                 
             }elseif (auth('seller')->check()){
-                $userRole = auth('seller')->user()->role;
                 $user = auth('seller')->user();
-
             }
 
+            $user->reviews()->create($validatedData);
 
-            $reviewableType = 'App\\Models\\' . $userRole;
-            $validatedData['reviewable_id'] = $user->id;
-            
-            $validatedData['reviewable_type'] = $reviewableType;
-            $review = Review::create($validatedData);
+            flash()->addSuccess('Successfully review added');
 
             if(auth('admin')->check()){
-                flash()->addSuccess('Successfully review added');
             return redirect()->route('products.index');
             }elseif (auth('sub_admin')->check()){
-                flash()->addSuccess('Successfully review added');
             return redirect()->route('sub_admin.product.index');
             }elseif (auth('seller')->check()){
-                flash()->addSuccess('Successfully review added');
             return redirect()->route('seller.products.index');
             }
           

@@ -31,16 +31,10 @@
             </tr>
             @if (!empty($reviews))
             @foreach ($reviews as $review)
-            @if ($review->reviewable_id)
-              @php
-              $user = App\Models\User::find($review->reviewable_id);
-              $role = App\Models\Role::find($user->role); 
-              @endphp
-               @endif
                 <tr>
-                    <td>{{$user->name}}</td>
-                    <td>{{$role->role_type}}</td>
-                    <td>{{$review->product_id}}</td>
+                    <td>{{$review->reviewable->name}}</td>
+                    <td>{{$review->reviewable->user_role->role_type?? 'N/A'}}</td>
+                    <td>{{$review->product->title}}</td>
                     <td>{{$review->rating}}</td>
                     <td>{{$review->review}}</td>
                     <td>

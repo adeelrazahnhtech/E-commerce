@@ -27,6 +27,10 @@ class SubAdmin extends Authenticatable
         return $this->hasMany(Product::class,  'sub_admin_id','id');
     }
 
+    public function user_role(){
+        return $this->belongsTo(Role::class ,'role', 'id');
+    }
+
     
     protected $fillable = [
         'name',

@@ -36,9 +36,12 @@ class User extends Authenticatable
     }
 
     public function reviews(){
-        return $this->morphMany('App\\Models\\Review'::class,'reviewable');
+        return $this->morphMany(Review::class,'reviewable');
     }
 
+    public function user_role(){
+        return $this->belongsTo(Role::class , 'role','id');
+    }
     /**
      * The attributes that are mass assignable.
      *

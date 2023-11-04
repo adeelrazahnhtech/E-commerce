@@ -39,7 +39,7 @@
                 </li> --}}
 
                 <li class="nav-item">
-                    <a href="{{ ('sub_admin.products.index')}}" class="nav-link">
+                    <a href="{{ route('sub_admin.product.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-tag"></i>
                         <p>Products</p>
                     </a>

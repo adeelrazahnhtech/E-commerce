@@ -30,8 +30,6 @@
                 <th>Action</th>
             </tr>
             @if (!empty($products))
-                
-            {{-- @dd($products) --}}
             @foreach ($products as $product)
                 <tr>
                     <td>{{$product->title}}</td>
@@ -40,9 +38,9 @@
                     <td>{{$product->track_qty}}</td>
                     <td>{{($product->status == 1 ) ? 'Yes' : 'No' }}</td>
                     <td style="display: flex;">
-                        {{-- @if (!auth('seller')->user()->review) --}}
+                        @if ($product->reviews->where('reviewable_id','=',auth('sub_admin')->id() AND 'reviewable_type','=','App\Models\SubAdmin' AND 'product_id','=',$product->id)->isEmpty())
                         <a href="{{route('sub_admin.give_review',$product->id)}}"><button class="btn btn-sm btn-success">Write a Review</button></a>  
-                        {{-- @endif --}}
+                        @endif
 
                         <a href="{{('seller.products.edit')}}"><button class="btn btn-sm btn-secondary">Edit</button></a>
                    <form action="{{('products.delete')}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product')">
