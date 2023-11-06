@@ -33,10 +33,11 @@
                                 <span class="fas fa-envelope"></span>
                               </div>
                         </div>
-                        @error('email')
-                           <p class="invalid-feedback">{{ $message }}</p>
-                        @enderror
                       </div>
+                      @if ($errors->has('email'))
+                      <p class="alert alert-danger">{{ $errors->first('email') }}</p>
+                      @endif
+                  
                       <div class="input-group mb-3">
                         <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
                         <div class="input-group-append">
@@ -44,9 +45,9 @@
                                 <span class="fas fa-lock"></span>
                               </div>
                         </div>
-                        @error('password')
-                            <p class="invalid-feedback">{{ $message }}</p>
-                        @enderror
+                        @if ($errors->has('password'))
+                        <p class="alert alert-danger">{{ $errors->first('password') }}</p>
+                    @endif
                       </div>
                       <div class="row">
                         <div class="col-md-12">

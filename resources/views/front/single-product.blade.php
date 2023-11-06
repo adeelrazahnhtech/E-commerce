@@ -7,9 +7,9 @@
             <div class="col-md-6">
             </div>
             <div class="col-md-6 text-right">
-                <!-- @if (auth()->user()->order && !auth()->user()->review) -->
-                <!-- @endif -->
+                 @if ($product->reviews->where('reviewable_id','=',auth()->id() AND 'reviewable_type','=','App\Models\User')->isEmpty()) 
                 <a href="{{route('review',$product->id)}}"><button class="btn btn-success">Write a Review</button></a>       
+                 @endif
                 <a href="{{route('account.profile')}}"><button class="btn btn-primary">Back</button></a>       
        </div>
         </div>

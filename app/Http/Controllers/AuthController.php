@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UserAuthenticateRequest;
 use App\Mail\EmailVerifiedMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,36 +19,30 @@ class AuthController extends Controller
     return view('front.register',compact('roles'));
    } 
 
-   public function processRegister(Request $request){
-    $validator = Validator::make($request->all(),[
-      'name' => 'required:min',
-      'email' => 'required|email|unique:users',
-      'password' => 'required|min:3|confirmed',
-      'role' => 'required',
-    ]);
+   public function processRegister(StoreUserRequest $request){
 
-    $validatedData = $validator->validated();
-    if($validator->passes()){
+    $validatedData = $request->validated();
+    if(empty($validatedData)){
+      return redirect()->route('account.register')->withInput($request->all());
+    }
         $validatedData['token'] = uniqid();  
         $user = User::create($validatedData);
         Mail::to($user->email)->send(new EmailVerifiedMail($user));
         return redirect()->route('account.register')->with('success','Account register Please wait for account approval');
-    }else{
-        return redirect()->route('account.register')->withErrors($validator)->withInput($request->only(['email','name']));
-    }
+    
    }
 
    public function login(){
     return view('front.login');
    }
 
-   public function authenticate(Request $request){
-    $validator = Validator::make($request->all(),[
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
+   public function authenticate(UserAuthenticateRequest $request){
+    $validatedData = $request->validated();
+    // dd($request);
 
-    if($validator->passes()){
+   if (empty($validatedData)) {
+      return redirect()->route('account.login')->withErrors($validatedData)->withInput($request->only('email'));
+    }
         if(Auth::attempt(['email'=> $request->email, 'password' => $request->password],$request->get('remember'))){
           $user = auth()->user();
           if($user->role == 3 && $user->email_verified == 1){
@@ -60,10 +56,7 @@ class AuthController extends Controller
         }else{
             return redirect()->route('account.login')->with('error','Invalid Email/password is incorrect');
         }
-    }else{
-        return redirect()->route('account.login')->withErrors($validator);
-
-    }
+   
 
    }
 }

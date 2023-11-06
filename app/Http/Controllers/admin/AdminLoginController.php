@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminAuthenticateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -13,12 +14,13 @@ class AdminLoginController extends Controller
         return view('admin.login');
     }
 
-    public function authenticate(Request $request){
-     $validator = Validator::make($request->all(),[
-            'email' => 'required|email',
-            'password' => 'required'
-     ]);
-     if($validator->passes()){
+    public function authenticate( AdminAuthenticateRequest $request){
+    $validatedData = $request->validated();
+     if($validatedData->fails()){
+        return redirect()->route('admin.login')
+                         ->withErrors($request)
+                         ->withInput($request->only('email')); 
+    }
 
         if(auth('admin')->attempt(['email'=>$request->email,'password'=> $request->password],$request->get('remember'))){
            $admin = Auth::guard('admin')->user();   // here we got complete information of user
@@ -32,10 +34,6 @@ class AdminLoginController extends Controller
             return redirect()->route('admin.login')->with('error','Invalid Email/Password is incorrect');
         }
 
-     }else{
-        return redirect()->route('admin.login')
-                         ->withErrors($validator)
-                         ->withInput($request->only('email'));
-     }
+    
     }
 }

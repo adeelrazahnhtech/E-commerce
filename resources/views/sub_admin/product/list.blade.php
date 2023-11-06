@@ -41,9 +41,8 @@
                         @if ($product->reviews->where('reviewable_id','=',auth('sub_admin')->id() AND 'reviewable_type','=','App\Models\SubAdmin' AND 'product_id','=',$product->id)->isEmpty())
                         <a href="{{route('sub_admin.give_review',$product->id)}}"><button class="btn btn-sm btn-success">Write a Review</button></a>  
                         @endif
-
-                        <a href="{{('seller.products.edit')}}"><button class="btn btn-sm btn-secondary">Edit</button></a>
-                   <form action="{{('products.delete')}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product')">
+                        <a href="{{('sub_admin.products.edit')}}"><button class="btn btn-sm btn-secondary">Edit</button></a>
+                   <form action="{{('sub_admin.products.delete')}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product')">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-sm btn-danger">Delete</button> 

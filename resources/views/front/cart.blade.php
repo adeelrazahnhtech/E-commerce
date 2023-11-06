@@ -81,8 +81,10 @@
                             <div>$0.00</div>
                         </div>
                         <div class="pt-2">
-                            <a href="{{route('cart.checkout')}}"><button class="submit btn-block w-100" style="background-color:orange; color:white;">
-                                PROCEED TO CHECKOUTE ()</button>
+                            <a href="{{route('cart.checkout')}}">
+                                <button class="submit btn-block w-100" style="background-color:orange; color:white;">
+                                PROCEED TO CHECKOUT ({{ Cart::getTotalQuantity() }})
+                            </button>
                             </a>
                         </div>
 

@@ -12,12 +12,12 @@ class UserController extends Controller
 {
     public function index(){
       $products = Product::with('reviews')->get();
-      // dd($products->first()->reviews);
         return view ('front.profile',compact('products'));
     }
 
     public function singleProduct($productId){
       $product = Product::with('orders')->with('reviews')->findOrFail($productId);
+      // dd($product);
       // dd($product);
       // dd(auth()->user()->order);
       // dd(auth()->user()->review);

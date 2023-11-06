@@ -96,7 +96,6 @@ class CheckoutController extends Controller
     //payment
     public function createOrder(Order $request){
         $items = Cart::getContent();
-        // dd($items);
         try {
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
             $line_items = [];

@@ -58,8 +58,8 @@ Route::group(['prefix' => 'account'], function () {
         Route::get('/product/{product}',[UserController::class,'singleProduct'])->name('product');
         //review
         Route::get('/user-review/{review}',[UserReviewController::class,'create'])->name('review');
-        
         Route::post('/user-review',[UserReviewController::class,'store'])->name('review.process');
+        
         //stripe-product
         Route::get('/packages', [UserPackageController::class, 'package'])->name('account.package.history'); 
         Route::get('/orders', [UserPackageController::class, 'order'])->name('front.order'); 

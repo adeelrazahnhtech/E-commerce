@@ -89,6 +89,9 @@ class UserReviewController extends Controller
                 
             }elseif (auth('seller')->check()){
                 $user = auth('seller')->user();
+            }else
+            {
+                $user = auth()->user();
             }
 
             $user->reviews()->create($validatedData);
@@ -101,6 +104,8 @@ class UserReviewController extends Controller
             return redirect()->route('sub_admin.product.index');
             }elseif (auth('seller')->check()){
             return redirect()->route('seller.products.index');
+            }else{
+                return redirect()->route('account.profile');
             }
           
         }else{
