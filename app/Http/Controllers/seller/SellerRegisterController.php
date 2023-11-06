@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\seller;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreSellerRequest;
 use App\Mail\EmailVerifiedMail;
 use App\Models\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 // use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use Mail;
+// use Mail;
 
 class SellerRegisterController extends Controller
 {
@@ -22,18 +23,14 @@ class SellerRegisterController extends Controller
         return view('seller.register',compact('roles'));
     }
 
-    public function register(Request $request){
+    public function register(StoreSellerRequest $request){
 
-        $validator = Validator::make($request->all(),[
-         'name' => 'required|min:3',
-         'email' => 'required|email|max:255|unique:users',
-         'password' => 'required|min:5|confirmed',
-         'role'      => 'required',
-        ]);
-
+        $validatedData = $request->validated();
         
-        if($validator->passes()){
-            $validatedData = $validator->validated();
+        if(empty($validatedData)){
+            return redirect()->route('seller.register')->withInput($request->all());
+            
+        }
             // $user = new User();
             // $user->name = $request->name;
             // $user->email = $request->email;
@@ -47,9 +44,6 @@ class SellerRegisterController extends Controller
 
             return redirect()->route('seller.register')->with('success','Account register please wait for account approval');
 
-        }else{
-            return redirect()->route('seller.register')->withErrors($validator)->withInput($request->only(['email','name']));
-        }
     }
 
     public function verify_email($tokken){

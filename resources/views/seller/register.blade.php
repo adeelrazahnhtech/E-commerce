@@ -17,7 +17,7 @@
 <body class="hold-transition login-page">
     <div class="register-box">
         <!-- /.login-logo -->
-        @include('seller.message')
+        @include('message')
         <div class="card card-outline card-primary">
               <div class="card-header text-center">
                 <a href="#" class="h3">Seller Panel</a>
@@ -27,49 +27,49 @@
                 <form action="{{ route('register.process') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="text" name="name" value="{{old('name')}}" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Name">
+                        <input type="text" name="name" value="{{old('name')}}" id="name" class="form-control" placeholder="Name">
                         <div class="input-group-append">
                               <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                               </div>
                         </div>
-                        @error('name')
-                           <p class="invalid-feedback">{{ $message }}</p>
-                        @enderror
                       </div>
+                      @if ($errors->has('name'))
+                      <p class="alert alert-danger">{{ $errors->first('name') }}</p>
+                      @endif
                       <div class="input-group mb-3">
-                        <input type="email" name="email" id="email" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror" placeholder="Email">
+                        <input type="email" name="email" id="email" value="{{old('email')}}" class="form-control" placeholder="Email">
                         <div class="input-group-append">
                               <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                               </div>
                         </div>
-                        @error('email')
-                           <p class="invalid-feedback">{{ $message }}</p>
-                        @enderror
                       </div>
+                      @if ($errors->has('email'))
+                      <p class="alert alert-danger">{{ $errors->first('email') }}</p>
+                      @endif
                       <div class="input-group mb-3">
-                        <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Password">
                         <div class="input-group-append">
                               <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                               </div>
                         </div>
-                        @error('password')
-                            <p class="invalid-feedback">{{ $message }}</p>
-                        @enderror
                       </div>
+                      @if ($errors->has('password'))
+                      <p class="alert alert-danger">{{ $errors->first('password') }}</p>
+                      @endif
                       <div class="input-group mb-3">
-                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Confirm Password">
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Confirm Password">
                         <div class="input-group-append">
                               <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                               </div>
                         </div>
-                        @error('password_confirmation')
-                            <p class="invalid-feedback">{{ $message }}</p>
-                        @enderror
                       </div>
+                      @if ($errors->has('password_confirmation'))
+                      <p class="alert alert-danger">{{ $errors->first('password_confirmation') }}</p>
+                      @endif
                       <div class="input-group mb-3">
                         <select class="form-control" name="role" id="role">
                           <option>Select A Role</option>
@@ -85,10 +85,10 @@
                                 <span class="fas fa-lock"></span>
                               </div>
                         </div>
-                        @error('password_confirmation')
-                            <p class="invalid-feedback">{{ $message }}</p>
-                        @enderror
                       </div>
+                      @if ($errors->has('role'))
+                      <p class="alert alert-danger">{{ $errors->first('role') }}</p>
+                      @endif
                       <div class="row">
                         <div class="col-md-12">
                               <button type="submit" class="btn btn-primary btn-block">Sign Up</button>

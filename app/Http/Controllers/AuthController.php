@@ -7,10 +7,10 @@ use App\Http\Requests\UserAuthenticateRequest;
 use App\Mail\EmailVerifiedMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Models\Role;
-use Mail;
+// use Mail;
 
 class AuthController extends Controller
 {
@@ -38,10 +38,9 @@ class AuthController extends Controller
 
    public function authenticate(UserAuthenticateRequest $request){
     $validatedData = $request->validated();
-    // dd($request);
 
    if (empty($validatedData)) {
-      return redirect()->route('account.login')->withErrors($validatedData)->withInput($request->only('email'));
+      return redirect()->route('account.login')->withInput($request->only('email'));
     }
         if(Auth::attempt(['email'=> $request->email, 'password' => $request->password],$request->get('remember'))){
           $user = auth()->user();

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class UserReviewController extends Controller
 {
     public function adminReview(){
-        $reviews = Review::with('reviewable.user_role','product')->get();
+        $reviews = Review::with('reviewable.user_role','product')->orderByDesc('rating')->get();
        return view("admin.review.list",compact("reviews"));
     }
 

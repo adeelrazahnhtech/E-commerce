@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\seller;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthenticateSellerRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,13 +14,12 @@ class SellerLoginController extends Controller
      return view('seller.login');
     }
 
-    public function authenticate(Request $request){
+    public function authenticate(AuthenticateSellerRequest $request){
 
-        $validator = Validator::make($request->all(),[
-            'email'    => 'required|email',
-            'password' => 'required'
-        ]);
-        if($validator->passes()){
+        $validatedData = $request->validated();
+        if(empty($validatedData)){
+            return redirect()->route('seller.login')->withInput($request->only('email'));
+        }
             if(Auth::guard('seller')->attempt(['email' => $request->email,'password' => $request->password],$request->get('remember'))){
                 
                 $user = Auth::guard('seller')->user();
@@ -35,9 +35,5 @@ class SellerLoginController extends Controller
             }else{
               return redirect()->route('seller.login')->with('error','Error Email/Password is incorrect');
             }
-        }else{
-            return redirect()->route('seller.login')->withErrors($validator)->withInput($request->only('email'));
-        }
-        
     }
 }

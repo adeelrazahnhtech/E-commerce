@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminAuthenticateRequest;
+use App\Http\Requests\AuthenticateAdminRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -14,11 +14,10 @@ class AdminLoginController extends Controller
         return view('admin.login');
     }
 
-    public function authenticate( AdminAuthenticateRequest $request){
+    public function authenticate( AuthenticateAdminRequest $request){
     $validatedData = $request->validated();
-     if($validatedData->fails()){
+    if(empty($validatedData)){
         return redirect()->route('admin.login')
-                         ->withErrors($request)
                          ->withInput($request->only('email')); 
     }
 

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\subAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthenticateSubAdminRequest;
+use App\Http\Requests\StoreSubAdminRequest;
 use App\Mail\EmailVerifiedMail;
 use App\Models\Role;
 use App\Models\SubAdmin;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -18,17 +20,13 @@ class SubAdminController extends Controller
         return view('sub_admin.register',compact('roles'));
     }
 
-    public function process(Request $request){
-        $validator = Validator::make($request->all(),[
-            'name' => 'required|min:3',
-            'email' => 'required|email|max:255|unique:sub_admins',
-            'password' => 'required|min:5|confirmed',
-            'role'      => 'required',
-           ]);
+    public function process(StoreSubAdminRequest $request){
+   $validatedData = $request->validated();
    
            
-           if($validator->passes()){
-               $validatedData = $validator->validated();
+           if(empty($validatedData)){
+            return redirect()->route('sub_admin.register')->withInput($request->all());
+           }
                $validatedData['token'] = uniqid();
                $user = SubAdmin::create($validatedData);
    
@@ -36,9 +34,7 @@ class SubAdminController extends Controller
    
                return redirect()->route('sub_admin.register')->with('success','Account register please wait for account approval');
    
-           }else{
-               return redirect()->route('sub_admin.register')->withErrors($validator)->withInput($request->only(['email','name']));
-           }
+          
     }
 
     public function verify_email($token){
@@ -64,10 +60,9 @@ class SubAdminController extends Controller
 
     
 
-    public function authenticate(Request $request){
+    public function authenticate(AuthenticateSubAdminRequest $request){
         $validator = Validator::make($request->all(),[
-            'email' => 'required|email',
-            'password' => 'required',
+          
         ]);
 
 
