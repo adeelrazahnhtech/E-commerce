@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "134a0b31a07d9a1aeb100943d8768dec",
+    "content-hash": "48db4ff31f31b84b14aca4f0cd84677e",
     "packages": [
         {
             "name": "brick/math",
@@ -494,6 +494,75 @@
                 }
             ],
             "time": "2023-10-06T06:47:41+00:00"
+        },
+        {
+            "name": "elegantweb/sanitizer",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elegantweb/sanitizer.git",
+                "reference": "1dc98ec3851d6d592d683a5a549127e12130b7ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elegantweb/sanitizer/zipball/1dc98ec3851d6d592d683a5a549127e12130b7ff",
+                "reference": "1dc98ec3851d6d592d683a5a549127e12130b7ff",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0",
+                "illuminate/validation": "^6.0|^7.0|^8.0|^9.0|^10.0",
+                "nesbot/carbon": "^1.0|^2.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Elegant\\Sanitizer\\Laravel\\SanitizerServiceProvider"
+                    ],
+                    "aliases": {
+                        "Sanitizer": "Elegant\\Sanitizer\\Laravel\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Elegant\\Sanitizer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Wallace San Paulo",
+                    "email": "info@waavi.com"
+                },
+                {
+                    "name": "Sina Sharifzade",
+                    "email": "sharifzadesina@gmail.com"
+                }
+            ],
+            "description": "Sanitization library for PHP and the Laravel framework.",
+            "keywords": [
+                "input",
+                "input filter",
+                "input sanitation",
+                "input sanitizer",
+                "laravel",
+                "sanitation",
+                "transform input"
+            ],
+            "support": {
+                "issues": "https://github.com/elegantweb/sanitizer/issues",
+                "source": "https://github.com/elegantweb/sanitizer/tree/v2.1.0"
+            },
+            "time": "2023-02-23T14:41:02+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -3534,6 +3603,72 @@
                 }
             ],
             "time": "2023-04-15T23:01:58+00:00"
+        },
+        {
+            "name": "srmklive/paypal",
+            "version": "3.0.27",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/srmklive/laravel-paypal.git",
+                "reference": "79560c59d8efd3bfab4dcdc141f7f1477c2f95eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/srmklive/laravel-paypal/zipball/79560c59d8efd3bfab4dcdc141f7f1477c2f95eb",
+                "reference": "79560c59d8efd3bfab4dcdc141f7f1477c2f95eb",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "guzzlehttp/guzzle": "~7.0",
+                "illuminate/support": "~6.0|~7.0|~8.0|~9.0|^10.0",
+                "nesbot/carbon": "~2.0",
+                "php": ">=7.2|^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^8.0|^9.0|^10.0",
+                "symfony/var-dumper": "~5.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Srmklive\\PayPal\\Providers\\PayPalServiceProvider"
+                    ],
+                    "aliases": {
+                        "PayPal": "Srmklive\\PayPal\\Facades\\PayPal"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Srmklive\\PayPal\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raza Mehdi",
+                    "email": "srmk@outlook.com"
+                }
+            ],
+            "description": "Laravel plugin For Processing Payments Through Paypal Express Checkout. Can Be Used Independently With Other Applications.",
+            "keywords": [
+                "http",
+                "laravel paypal",
+                "paypal",
+                "rest",
+                "web service"
+            ],
+            "support": {
+                "issues": "https://github.com/srmklive/laravel-paypal/issues",
+                "source": "https://github.com/srmklive/laravel-paypal/tree/3.0.27"
+            },
+            "time": "2023-11-09T22:02:55+00:00"
         },
         {
             "name": "stripe/stripe-php",
@@ -8653,5 +8788,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

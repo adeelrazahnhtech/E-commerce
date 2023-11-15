@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Elegant\Sanitizer\Laravel\SanitizesInput;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserRequest extends FormRequest
@@ -9,6 +10,15 @@ class StoreUserRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
+    use SanitizesInput;
+    public function filters(): array
+    {
+        return [
+            'name' => 'trim|escape|capitalize',
+            'email' => 'trim|lowercase',
+            'password' => 'trim'
+        ];
+    }
     public function authorize(): bool
     {
         return true;
@@ -40,7 +50,7 @@ class StoreUserRequest extends FormRequest
 
     public function fiters(){
         return [
-            'name' => 'trim|escape|Capitalize',
+            'name' => 'trim|escape|capitalize',
             'email' => 'trim|escape|lowercase',
             'password' => 'trim',
 

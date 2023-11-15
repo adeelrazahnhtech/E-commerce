@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Elegant\Sanitizer\Laravel\SanitizesInput;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AuthenticateAdminRequest extends FormRequest
@@ -19,6 +20,14 @@ class AuthenticateAdminRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+    use SanitizesInput;
+
+     public function filters(){
+        return [
+            'email' => 'trim|escape|capitalize',
+            'password' => 'trim'
+        ];
+     }
     public function rules(): array
     {
         return [

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function index(){
-      $products = Product::with('reviews')->get();
+      $products = Product::with('reviews')->orderByDesc('id')->get();
         return view ('front.profile',compact('products'));
     }
 

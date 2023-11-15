@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\PackageController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\PaypalPaymentController;
 use App\Http\Controllers\seller\DashboardController;
 // use App\Http\Controllers\seller\ProductSellerController;
 use App\Http\Controllers\seller\SellerLoginController;
@@ -64,11 +65,18 @@ Route::group(['prefix' => 'account'], function () {
         Route::get('/packages', [UserPackageController::class, 'package'])->name('account.package.history'); 
         Route::get('/orders', [UserPackageController::class, 'order'])->name('front.order'); 
         Route::get('/products/{order}', [UserPackageController::class, 'viewProduct'])->name('order.product'); 
+
         
         //stripe-package
         Route::get('/checkout/{package}', [CheckoutController::class, 'createPackage'])->name('checkout');
         Route::get('/success', [CheckoutController::class, 'storePackage'])->name('checkout.success');
         Route::get('/cancel', [CheckoutController::class, 'cancelPackage'])->name('checkout.cancel');
+
+        
+        //paypal payment
+        Route::get('handle-payment', [PaypalPaymentController::class, 'handlePayment'])->name('make.payment');
+        Route::get('success-payment', [PaypalPaymentController::class, 'paymentSuccess'])->name('success.payment');
+        Route::get('cancel-payment', [PaypalPaymentController::class, 'paymentCancel'])->name('cancel.payment');
         //cart
         Route::get('/cart-checkout', [CheckoutController::class, 'createOrder'])->name('cart.checkout');
         Route::get('/store-checkout', [CheckoutController::class, 'storeOrder'])->name('order.pay');

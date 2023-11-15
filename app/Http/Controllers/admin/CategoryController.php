@@ -11,7 +11,7 @@ use App\Models\Category;
 class CategoryController extends Controller
 {
     public function index(){
-        $categories = Category::get();
+        $categories = Category::orderByDesc('id')->get();
         $data['categories'] = $categories;
       return view('admin.category.list',$data);
     }

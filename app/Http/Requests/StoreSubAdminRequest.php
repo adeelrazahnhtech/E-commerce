@@ -2,13 +2,23 @@
 
 namespace App\Http\Requests;
 
+use Elegant\Sanitizer\Laravel\SanitizesInput;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSubAdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     */
+     */ 
+    use SanitizesInput;
+    public function filters(): array
+    {
+        return [
+            'name' => 'trim|escape|capitalize',
+            'email' => 'trim|lowercase',
+            'password' => 'trim'
+        ];
+    }
     public function authorize(): bool
     {
         return true;
@@ -39,11 +49,4 @@ class StoreSubAdminRequest extends FormRequest
             ];
     }
 
-    public function filters(): array
-    {
-        return [
-            'name' => 'trim|capitalize|escape',
-            'email' => 'trim|lowercase',
-        ];
-    }
 }
