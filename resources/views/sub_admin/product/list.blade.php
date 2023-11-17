@@ -42,6 +42,7 @@
                         <a href="{{route('sub_admin.give_review',$product->id)}}"><button class="btn btn-sm btn-success">Write a Review</button></a>  
                         @endif
                         <a href="{{('sub_admin.products.edit')}}"><button class="btn btn-sm btn-secondary">Edit</button></a>
+                        
                    <form action="{{('sub_admin.products.delete')}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product')">
                     @csrf
                     @method('DELETE')

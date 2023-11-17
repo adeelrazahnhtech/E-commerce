@@ -15,7 +15,9 @@ class ProductController extends Controller
   public function index()
   {
     $product = Product::with('category', 'seller', 'sub_admin')->orderByDesc('id')->get();
+    $user = auth()->user();
     $data['products'] = $product;
+    $data['user'] = $user;
     return view('admin.product.list', $data);
 
   }
@@ -165,6 +167,9 @@ class ProductController extends Controller
     if (auth('seller')->check()) {
       $product = auth('seller')->user()->products()->find(request()->product);
       if ($product) {
+        if(Gate::){
+
+        }
         $product->delete();
         return redirect()->route('products.index')->with('success', 'product deleted successfully');
       } else

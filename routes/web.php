@@ -74,9 +74,9 @@ Route::group(['prefix' => 'account'], function () {
 
         
         //paypal payment
-        Route::get('handle-payment', [PaypalPaymentController::class, 'handlePayment'])->name('make.payment');
-        Route::get('success-payment', [PaypalPaymentController::class, 'paymentSuccess'])->name('success.payment');
-        Route::get('cancel-payment', [PaypalPaymentController::class, 'paymentCancel'])->name('cancel.payment');
+        // Route::get('handle-payment', [PaypalPaymentController::class, 'handlePayment'])->name('make.payment');
+        // Route::get('success-payment', [PaypalPaymentController::class, 'paymentSuccess'])->name('success.payment');
+        // Route::get('cancel-payment', [PaypalPaymentController::class, 'paymentCancel'])->name('cancel.payment');
         //cart
         Route::get('/cart-checkout', [CheckoutController::class, 'createOrder'])->name('cart.checkout');
         Route::get('/store-checkout', [CheckoutController::class, 'storeOrder'])->name('order.pay');

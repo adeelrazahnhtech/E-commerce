@@ -99,7 +99,7 @@ class CheckoutController extends Controller
         try {
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
             $line_items = [];
-
+            
             foreach ($items as $key => $value) {
                 $product = Product::find($value['id']);
 
