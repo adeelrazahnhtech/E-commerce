@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use Illuminate\Http\Request;
-// use ExpressCheckout;
 class PaypalPaymentController extends Controller
 {
     public function handlePayment(){
@@ -27,8 +26,6 @@ class PaypalPaymentController extends Controller
         $paypalModule = new ExpressCheckout;
   
         $res = $paypalModule->setExpressCheckout($product);
-        $res = $paypalModule->setExpressCheckout($product, true);
-
         return redirect($res['paypal_link']);
     }
 
@@ -50,4 +47,6 @@ class PaypalPaymentController extends Controller
   
         dd('Error occured!');
     }
+
+    
 }

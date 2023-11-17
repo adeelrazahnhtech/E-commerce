@@ -47,6 +47,8 @@ class UserPackageController extends Controller
      $user =   auth()->user()->name;
      $orders = Order::with('products')->get();
      return view('front.order',compact('orders','user'));
+    //  $orders = Order::with('roles')->first(); // hasmanythorugh
+    //  dd($orders);
     }
     
     public function viewProduct($orderId){

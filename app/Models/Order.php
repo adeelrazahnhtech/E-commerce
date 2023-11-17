@@ -16,6 +16,11 @@ class Order extends Model
         // 'status',
     ];
 
+    
+    // public function roles(){
+    //     return $this->hasOneThrough(Role::class, User::class,'role');
+    // }
+
     public function products(){
         return $this->belongsToMany(Product::class,'order_product','order_id','product_id')->withPivot('quantity');
     }

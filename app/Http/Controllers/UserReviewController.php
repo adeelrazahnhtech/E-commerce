@@ -15,7 +15,7 @@ class UserReviewController extends Controller
        return view("admin.review.list",compact("reviews"));
     }
 
-    public function approve(Request $request, $reviewId)
+    public function approve($reviewId)
     {
         $review = Review::find($reviewId);
         
