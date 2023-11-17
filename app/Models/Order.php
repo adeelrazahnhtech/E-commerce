@@ -16,6 +16,7 @@ class Order extends Model
         // 'status',
     ];
 
+
     
     // public function roles(){
     //     return $this->hasOneThrough(Role::class, User::class,'role');

@@ -45,11 +45,14 @@
                         @endif
 
                         <a href="{{route('seller.products.edit',$product->id)}}"><button class="btn btn-sm btn-secondary">Edit</button></a>
-                   <form action="{{route('products.delete',$product->id)}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product')">
+                        @cannot('is-admin', $product)  {{--gate authorization--}}
+                        <form action="{{route('products.delete',$product->id)}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product')">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-sm btn-danger">Delete</button> 
                    </form>
+                   @endcannot
+
                     </td>
                 </tr>
             @endforeach

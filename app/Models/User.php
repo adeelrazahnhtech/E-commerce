@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Http\Request;
 use Laravel\Sanctum\HasApiTokens;
@@ -25,12 +26,11 @@ class User extends Authenticatable
         return $this->hasMany(Product::class, 'seller_id', 'id');
     }
 
-    public function packages()
+     public function packages()
     {
         return $this->belongsToMany(Package::class, 'userpackages', 'user_id', 'package_id')->withPivot('created_at');
     }
 
-  
     public function orders()
     {
         return $this->hasMany(Order::class, 'user_id', 'id');
@@ -40,9 +40,11 @@ class User extends Authenticatable
         return $this->morphMany(Review::class,'reviewable');
     }
 
-    public function user_role(){
+    public function user_role()
+    {
         return $this->belongsTo(Role::class , 'role','id');
     }
+
     /**
      * The attributes that are mass assignable.
      *
