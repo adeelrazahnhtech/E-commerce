@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\SubAdmin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -167,9 +168,12 @@ class ProductController extends Controller
     if (auth('seller')->check()) {
       $product = auth('seller')->user()->products()->find(request()->product);
       if ($product) {
-        if(Gate::){
+        // if(Gate::denies('is-admin')){   //gate via controller not authroize for url
+        //   abort(403);
+        // }
 
-        }
+         //policies via controller not authroize for url
+        $this->authorize('isAdmin',Product::class);
         $product->delete();
         return redirect()->route('products.index')->with('success', 'product deleted successfully');
       } else

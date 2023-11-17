@@ -43,13 +43,16 @@
                         <a href="{{route('admin.give_review',$product->id)}}"><button class="btn btn-sm btn-success">Write a Review</button></a>  
                         @endif 
                         <a href="{{route('products.edit',$product->id)}}"><button class="btn btn-secondary">Edit</button></a>
-                        @cannot('is-admin',$product)    {{-- gate authentication --}}
+                         {{-- @cannot('is-admin', $product)  gate authorization --}}
+                         @can('isAdmin',$post) {{--Policies authrization--}}
                          <form action="{{route('products.delete',$product->id)}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product')">
                      @csrf
                      @method('DELETE')
                      <button class="btn btn-danger">Delete</button> 
                     </form>
-                         @endcannot
+                    @endcannot
+                         {{-- @endcannot --}}
+
                     </td>
                 </tr>
             @endforeach
