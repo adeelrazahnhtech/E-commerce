@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\PackageController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
@@ -115,7 +116,8 @@ Route::group(['prefix' => 'admin'], function () {
 
         //product 
         Route::get('/products', [ProductController::class, 'index'])->name('products.index');  //policies via middleware   
-        Route::get('/products/create', [ProductController::class, 'create'])->middleware(['can:isAdmin, App\Models\Product'])->name('products.create');
+        // Route::get('/products/create', [ProductController::class, 'create'])->middleware(['can:isAdmin, App\Models\Product'])->name('products.create');
+        Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
         Route::post('/products', [ProductController::class, 'store'])->name('products.store');
         Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
         Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
@@ -130,7 +132,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::delete('/packages/{package}', [PackageController::class, 'destroy'])->name('packages.delete');
 
         //reviews
-        Route::get('/admin-review/{review}',[UserReviewController::class,'admin_create'])->name('admin.give_review');
+        Route::get('/admin-review/{review}',[UserReviewController::class,'adminCreate'])->name('admin.give_review');
         Route::post('/admin-review',[UserReviewController::class,'store'])->name('admin.review.process');
 
         Route::get('/reviews', [UserReviewController::class, 'adminReview'])->name('admin.reviews');
@@ -138,6 +140,15 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::get('/reviews-approved/{review}', [UserReviewController::class, 'approve'])->name('review.approved');
         Route::get('/reviews-disapproved/{review}', [UserReviewController::class, 'disapprove'])->name('review.disapproved');
+
+        //seller permission
+        Route::get('/sellers',[PermissionController::class, 'index'])->name('seller');
+        Route::get('/sellers-approve/{seller}',[PermissionController::class, 'approve'])->name('seller.approved');
+        Route::get('/sellers-disapprove/{seller}',[PermissionController::class, 'disapprove'])->name('seller.disapproved');
+        
+        Route::get('/sellers-permission/{seller}',[PermissionController::class, 'show'])->name('seller.permission');
+
+
         
     });
 
@@ -195,8 +206,8 @@ Route::group(['prefix' => 'seller'], function () {
         Route::group(['middleware' => 'product.owner'], function () {
             Route::get('/products/{product}/edit', [ProductController::class, 'seller_edit'])->name('seller.products.edit');
         });
-        Route::get('/products', [ProductController::class, 'seller_index'])->name('seller.products.index');
-        Route::get('/products/create', [ProductController::class, 'seller_create'])->name('seller.products.create');
+        Route::get('/products', [ProductController::class, 'sellerIndex'])->name('seller.products.index');
+        Route::get('/products/create', [ProductController::class, 'sellerCreate'])->name('seller.products.create');
         Route::post('/products', [ProductController::class, 'store'])->name('seller.products.store');
         Route::get('/products/{product}/edit', [ProductController::class, 'seller_edit'])->name('seller.products.edit');
         Route::put('/products/{product}', [ProductController::class, 'update'])->name('seller.products.update');

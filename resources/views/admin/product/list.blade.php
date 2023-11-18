@@ -44,7 +44,7 @@
                         @endif 
                         <a href="{{route('products.edit',$product->id)}}"><button class="btn btn-secondary">Edit</button></a>
                          {{-- @cannot('is-admin', $product)  gate authorization --}}
-                         @can('isAdmin',$post) {{--Policies authrization--}}
+                         @can('isAdmin',$product) {{--Policies authrization--}}
                          <form action="{{route('products.delete',$product->id)}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product')">
                      @csrf
                      @method('DELETE')

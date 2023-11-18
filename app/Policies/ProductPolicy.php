@@ -15,7 +15,7 @@ class ProductPolicy
        return $user->email === 'admin@gmail.com' 
        ? Response::allow() : Response::deny('you don"t modify this post');
     }
-    public function __construct()
+    public function __construct(User $user)
     {
         //
     }

@@ -43,13 +43,13 @@ class UserReviewController extends Controller
         return redirect()->back();
     }
 
-    public function admin_create($productId){
+    public function adminCreate($productId){
         $product = Product::find($productId);
             return view('admin.review.create',compact('product'));
 
     }
 
-    public function seller_create($productId){
+    public function sellerCreate($productId){
       $product =  Product::find($productId);
       return view('seller.review.create',compact('product'));
 

@@ -23,7 +23,7 @@ class ProductController extends Controller
 
   }
 
-  public function seller_index()
+  public function sellerIndex()
   {
     // $products = Product::with('category', 'seller')->where('seller_id', auth('seller')->id())->get();
     $products = auth('seller')->user()->products;
@@ -169,16 +169,17 @@ class ProductController extends Controller
       $product = auth('seller')->user()->products()->find(request()->product);
       if ($product) {
         // if(Gate::denies('is-admin')){   //gate via controller not authroize for url
-        //   abort(403);
-        // }
-
-         //policies via controller not authroize for url
-        $this->authorize('isAdmin',Product::class);
-        $product->delete();
-        return redirect()->route('products.index')->with('success', 'product deleted successfully');
-      } else
+          //   abort(403);
+          // }
+          
+          //policies via controller not authroize for url
+          $this->authorize('isAdmin',Product::class);
+         
+         $product->delete();
+         return redirect()->route('products.index')->with('success', 'product deleted successfully');
+        } else
         return redirect()->back()->with('error', 'Unauthorized');
-    }
+      }
 
     $product = Product::find($productId);
     if (empty($product)) {
