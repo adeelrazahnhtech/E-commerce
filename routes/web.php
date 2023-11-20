@@ -146,8 +146,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/sellers-approve/{seller}',[PermissionController::class, 'approve'])->name('seller.approved');
         Route::get('/sellers-disapprove/{seller}',[PermissionController::class, 'disapprove'])->name('seller.disapproved');
         
-        Route::get('/sellers-permission/{seller}',[PermissionController::class, 'show'])->name('seller.permission');
-
+       Route::get('/sellers-permission/{seller}',[PermissionController::class, 'create'])->name('seller.permission');
+       Route::post('/sellers-permission/{seller}',[PermissionController::class, 'store'])->name('permission.store');
 
         
     });

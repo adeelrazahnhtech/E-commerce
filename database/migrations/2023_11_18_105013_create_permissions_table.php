@@ -13,11 +13,7 @@ return new class extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
-            $table->boolean('product_store')->default(false);
-            $table->boolean('product_update')->default(false);
-            $table->boolean('product_delete')->default(false);
-            $table->boolean('seller_update')->default(false);
-            $table->boolean('seller_delete')->default(false);
+            $table->string('name');
             $table->timestamps();
         });
     }

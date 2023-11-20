@@ -33,7 +33,7 @@
                     <td>{{$seller->user_role->role_type}}</td>
                     <td>{{$seller->email}}</td>
                     <td style="display: flex;">
-                    @if ($seller->email_verified === 0)
+                    @if ($seller->email_verified === null)
                         <a href="{{route('seller.approved',$seller->id)}}"><button class="btn btn-primary">Approved</button></a>
                     @else
                         <a href="{{route('seller.disapproved',$seller->id)}}"><button class="btn btn-danger">Disapproved</button></a>

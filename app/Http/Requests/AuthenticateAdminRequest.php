@@ -24,7 +24,7 @@ class AuthenticateAdminRequest extends FormRequest
 
      public function filters(){
         return [
-            'email' => 'trim|escape|capitalize',
+            'email' => 'trim|escape',
             'password' => 'trim'
         ];
      }

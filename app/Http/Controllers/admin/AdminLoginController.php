@@ -20,7 +20,6 @@ class AdminLoginController extends Controller
         return redirect()->route('admin.login')
                          ->withInput($request->only('email')); 
     }
-
         if(auth('admin')->attempt(['email'=>$request->email,'password'=> $request->password],$request->get('remember'))){
            $admin = Auth::guard('admin')->user();   // here we got complete information of user
            if($admin->role == 1){
