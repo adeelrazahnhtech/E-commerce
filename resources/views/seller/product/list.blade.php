@@ -8,8 +8,10 @@
             <h1>Products</h1>
         </div>
         <div class="col-sm-6 text-right">
+            {{-- @can('productStore') --}}
                  <a href="{{route('seller.products.create')}}"><button class="btn btn-primary">Add</button></a>       
-         </div>
+            {{-- @endcan --}}
+        </div>
     
     </div>
     </div>
@@ -46,13 +48,13 @@
 
                         <a href="{{route('seller.products.edit',$product->id)}}"><button class="btn btn-sm btn-secondary">Edit</button></a>
                         {{-- @cannot('is-admin', $product)  gate authorization --}}
-                        @can('isAdmin',$product) {{--Policies authrization  via blade --}}
+                        @can('productStore',$product) {{--Policies authrization  via blade --}}
                         <form action="{{route('seller.products.delete',$product->id)}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product')">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-sm btn-danger">Delete</button> 
                    </form>
-                   @endcannot
+                   @endcan
                    {{-- @endcannot --}}
 
                     </td>

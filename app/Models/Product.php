@@ -36,4 +36,15 @@ class Product extends Model
  
     public $timestamps = false;
     protected $guarded = [];
+
+    protected $fillable = [
+        'category_id',
+        'seller_id',
+        'sub_admin_id',
+        'title',
+        'description',
+        'price',
+        'track_qty',
+        'status',
+    ];
 }

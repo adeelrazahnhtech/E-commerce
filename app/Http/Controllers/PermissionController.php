@@ -14,6 +14,7 @@ class PermissionController extends Controller
     public function index()
     {
         $sellers = User::with('user_role')->where('role', '=', 2)->get();
+        // dd($sellers);
         return view('admin.seller.list', compact('sellers'));
     }
 

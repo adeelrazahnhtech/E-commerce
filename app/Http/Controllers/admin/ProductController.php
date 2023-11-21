@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\SellerPermission;
 use App\Models\SubAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -46,8 +47,9 @@ class ProductController extends Controller
     return view('admin.product.create', $data);
   }
 
-  public function seller_create()
+  public function sellerCreate()
   {
+
     $categories = Category::orderBy('name', 'ASC')->get();
     $data['categories'] = $categories;
 
