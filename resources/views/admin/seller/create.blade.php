@@ -22,7 +22,7 @@
                         {{-- @dd($seller->permissions->toArray()) --}}
                         @foreach ($permissions as $key => $permission)
                         <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="permissions[]" value="{{$permission->id }}" {{$permission->seller!=null?'checked':''}}>
+                        <input type="checkbox" class="form-check-input" name="permissions[]" value="{{$permission->name }}" {{$permission->seller!=null?'checked':''}}>
                         <label class="form-check-label" for="{{$permission->name}}">{{$permission->name}}</label>
                         </div>
                         @endforeach

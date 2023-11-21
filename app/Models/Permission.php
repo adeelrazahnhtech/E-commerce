@@ -18,7 +18,8 @@ class Permission extends Model
     //     return $this->belongsToMany(User::class);
     // }
 
-    public function seller(){
+    public function seller()
+    {
         return $this->hasOne(SellerPermission::class, 'permission_id', 'id');
     }
 }

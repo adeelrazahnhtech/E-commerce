@@ -36,7 +36,8 @@ class User extends Authenticatable
         return $this->hasMany(Order::class, 'user_id', 'id');
     }
 
-    public function reviews(){
+    public function reviews()
+    {
         return $this->morphMany(Review::class,'reviewable');
     }
 
@@ -45,7 +46,8 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class , 'role','id');
     }
 
-    public function permissions(){
+    public function permissions()
+    {
         return $this->belongsToMany(Permission::class,'permission_seller','seller_id','permission_id');
     }
 

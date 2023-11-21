@@ -15,8 +15,12 @@ class ProductPolicy
        return $user->email === 'admin@gmail.com' 
        ? Response::allow() : Response::deny('you don"t modify this post');
     }
-    public function __construct(User $user)
-    {
-        //
+
+    public function productStore(User $user){
+        return $user->email === 'admin@gamil.com' ? Response::allow() : Response::deny('you are not allowed to store');
     }
+    // public function __construct(User $user)
+    // {
+    //     //
+    // }
 }

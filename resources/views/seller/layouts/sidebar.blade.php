@@ -17,6 +17,18 @@
                         <p>Dashboard</p>
                     </a>																
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('seller.products.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-tag"></i>
+                        <p>Products</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('sellers.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-tag"></i>
+                        <p>Sellers</p>
+                    </a>
+                </li>
                 {{-- <li class="nav-item">
                     <a href="{{ route('categories.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-file-alt"></i>
@@ -37,12 +49,6 @@
                         <p>Brands</p>
                     </a>
                 </li> --}}
-                <li class="nav-item">
-                    <a href="{{ route('seller.products.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-tag"></i>
-                        <p>Products</p>
-                    </a>
-                </li>
                 
             {{--    <li class="nav-item">
                     <a href="{{('shipping.create')}}" class="nav-link">

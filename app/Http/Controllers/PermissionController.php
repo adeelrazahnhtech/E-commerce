@@ -45,12 +45,13 @@ class PermissionController extends Controller
     public function store(Request $request, $sellerId)
     {
         $user = User::findOrFail($sellerId);
-        $selectedPermissions = $request->input('permissions', []);
-        foreach ($selectedPermissions as $permission) {
+      
+        $selectedPermissions = $request->input('permissions',[]);
+        $permissionId =   collect($selectedPermissions)->map(function ($permissionName){
+                return Permission::firstOrCreate(['name'=>$permissionName])->id; 
+                 });
 
-            $permission = Permission::firstOrCreate(['name' => $permission]);
-        }
-        $user->permissions()->attach($permission->id);
+            $user->permissions()->sync($permissionId);
 
         return redirect()->route('seller');
     }
@@ -58,11 +59,15 @@ class PermissionController extends Controller
 
     public function create($sellerId)
     {
-        $permissions = Permission::with(['seller'=>fn($q)=>$q->where('seller_id', $sellerId)])->get();
-        // dd($permissions);
+        $permissions = Permission::with(['seller'=>fn($q)=>$q->where('seller_id', $sellerId)])->get(); // here it filters within the relation 
+        // $permissions = Permission::with('seller')->whereHas('seller', fn($q)=>$q->where('seller_id', $sellerId))->get(); // here it filters over all queries like it retrives that records who assign to the seller 
+        // $permissions = Permission::with('seller')->get(); // here it retrives all the permission based on the seller 
+
         $seller = User::with('permissions')->findOrFail($sellerId);
         return view('admin.seller.create', compact('seller', 'permissions'));
     }
+
+
     public function show()
     {
     }

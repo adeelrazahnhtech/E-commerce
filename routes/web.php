@@ -11,6 +11,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\PaypalPaymentController;
 use App\Http\Controllers\seller\DashboardController;
 // use App\Http\Controllers\seller\ProductSellerController;
+use App\Http\Controllers\seller\SellerController;
 use App\Http\Controllers\seller\SellerLoginController;
 use App\Http\Controllers\seller\SellerRegisterController;
 use App\Http\Controllers\subAdmin\SubAdminController;
@@ -216,6 +217,9 @@ Route::group(['prefix' => 'seller'], function () {
         //review   
         Route::get('/seller-review/{review}',[UserReviewController::class,'seller_create'])->name('seller.give_review');
         Route::post('/seller-review',[UserReviewController::class,'store'])->name('seller.review.process');
+
+        //seller
+        Route::resource('sellers', SellerController::class);
 
 
 
