@@ -13,8 +13,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $sellers = User::with('user_role')->where('role', '=', 2)->get();
-        return view('admin.seller.list', compact('sellers'));
+        $users = User::with('user_role')->where('role', '!=', 1)->get();
+        return view('admin.seller.list', compact('users'));
     }
 
     public function approve($sellerId)
@@ -22,9 +22,9 @@ class PermissionController extends Controller
         $user = User::findOrFail($sellerId);
 
         $user->update(['email_verified' => 1, 'token' => null]);
-        flash()->addSuccess('Seller has been approved');
+        flash()->addSuccess('User has been approved');
 
-        return redirect()->route('seller');
+        return redirect()->route('user');
     }
 
 
@@ -33,9 +33,9 @@ class PermissionController extends Controller
         $user = User::findOrFail($sellerId);
 
         $user->update(['email_verified' => null]);
-        flash()->addSuccess('Seller has been disapproved');
+        flash()->addSuccess('User has been disapproved');
 
-        return redirect()->route('seller');
+        return redirect()->route('user');
     }
 
     /**
@@ -53,7 +53,7 @@ class PermissionController extends Controller
 
             $user->permissions()->sync($permissionId);
 
-        return redirect()->route('seller');
+        return redirect()->route('user');
     }
 
 

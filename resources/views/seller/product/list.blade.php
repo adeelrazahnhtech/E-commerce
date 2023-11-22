@@ -10,7 +10,6 @@
         <div class="col-sm-6 text-right">
                  <a href="{{route('seller.products.create')}}"><button class="btn btn-primary">Add</button></a>       
          </div>
-    
     </div>
     </div>
     </section>
@@ -30,8 +29,6 @@
                 <th>Action</th>
             </tr>
             @if (!empty($products))
-                
-            {{-- @dd($products) --}}
             @foreach ($products as $product)
                 <tr>
                     <td>{{$product->title}}</td>
@@ -43,16 +40,16 @@
                         @if ($product->reviews->where('reviewable_id','=',auth('seller')->id() AND 'reviewable_type','=','App\Models\User')->isEmpty())
                         <a href="{{route('seller.give_review',$product->id)}}"><button class="btn btn-sm btn-success">Write a Review</button></a>  
                         @endif
-
                         <a href="{{route('seller.products.edit',$product->id)}}"><button class="btn btn-sm btn-secondary">Edit</button></a>
                         {{-- @cannot('is-admin', $product)  gate authorization --}}
-                        @can('isAdmin',$product) {{--Policies authrization  via blade --}}
+                        @can('product_delete',$product)  {{-- Policies authrization  via blade --}}
                         <form action="{{route('seller.products.delete',$product->id)}}" method="post" onsubmit="return confirm('Are you sure you want to delete this product')">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-sm btn-danger">Delete</button> 
                    </form>
-                   @endcannot
+                   @endcan
+                   {{-- @endcannot --}}
                    {{-- @endcannot --}}
 
                     </td>

@@ -24,9 +24,9 @@
                     </a>
                 </li>
                  <li class="nav-item">
-                    <a href="{{ route('seller')}}" class="nav-link">
+                    <a href="{{ route('user')}}" class="nav-link">
                         <i class="nav-icon fas fa-file-alt"></i>
-                        <p>Seller</p>
+                        <p>User</p>
                     </a>
                 </li>
                 {{-- <li class="nav-item">

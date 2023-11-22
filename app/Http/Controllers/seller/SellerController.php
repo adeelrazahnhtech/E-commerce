@@ -48,6 +48,7 @@ class SellerController extends Controller
      */
     public function edit(string $id)
     {
+        $this->authorize('edit', User::class);
        $seller = User::findOrFail($id);
        return view('seller.seller.edit',compact('seller'));
     }
@@ -57,6 +58,8 @@ class SellerController extends Controller
      */
     public function update(Request $request, string $id)
     {    
+        $this->authorize('update', User::class);
+
         $seller = User::findOrFail($id);
         $validator = Validator::make($request->all(),[
             'name' => 'required|min:3',
@@ -82,6 +85,8 @@ class SellerController extends Controller
      */
     public function destroy(string $id)
     {
+        $this->authorize('delete',User::class);
+        
         $user = User::findOrFail($id);
         $user->delete();
         flash()->addSuccess('User deleted successfully');

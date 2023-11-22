@@ -143,12 +143,12 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/reviews-disapproved/{review}', [UserReviewController::class, 'disapprove'])->name('review.disapproved');
 
         //seller permission
-        Route::get('/sellers',[PermissionController::class, 'index'])->name('seller');
-        Route::get('/sellers-approve/{seller}',[PermissionController::class, 'approve'])->name('seller.approved');
-        Route::get('/sellers-disapprove/{seller}',[PermissionController::class, 'disapprove'])->name('seller.disapproved');
+        Route::get('/users',[PermissionController::class, 'index'])->name('user');
+        Route::get('/users-approve/{user}',[PermissionController::class, 'approve'])->name('user.approved');
+        Route::get('/user-disapprove/{user}',[PermissionController::class, 'disapprove'])->name('user.disapproved');
         
-       Route::get('/sellers-permission/{seller}',[PermissionController::class, 'create'])->name('seller.permission');
-       Route::post('/sellers-permission/{seller}',[PermissionController::class, 'store'])->name('permission.store');
+       Route::get('/users-permission/{user}',[PermissionController::class, 'create'])->name('user.permission');
+       Route::post('/users-permission/{user}',[PermissionController::class, 'store'])->name('permission.store');
 
         
     });

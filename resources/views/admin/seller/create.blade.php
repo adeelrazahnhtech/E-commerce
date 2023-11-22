@@ -6,7 +6,7 @@
         <div class="row mb-2">
            
             <div class="col-sm-12 text-right">
-                     <a href="{{route('seller')}}"><button class="btn btn-primary">Back</button></a>       
+                     <a href="{{route('user')}}"><button class="btn btn-primary">Back</button></a>       
              </div>
         </div>
      </div>

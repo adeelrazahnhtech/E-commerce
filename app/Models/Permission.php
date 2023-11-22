@@ -14,10 +14,6 @@ class Permission extends Model
         'name'
     ];
 
-    // public function users(){
-    //     return $this->belongsToMany(User::class);
-    // }
-
     public function seller()
     {
         return $this->hasOne(SellerPermission::class, 'permission_id', 'id');

@@ -26,19 +26,19 @@
                 <th>Email</th>
                 <th>Action</th>
             </tr>
-            @if (!empty($sellers))
-            @foreach ($sellers as $seller)
+            @if (!empty($users))
+            @foreach ($users as $user)
                 <tr>
-                    <td>{{$seller->name}}</td>
-                    <td>{{$seller->user_role->role_type}}</td>
-                    <td>{{$seller->email}}</td>
+                    <td>{{$user->name}}</td>
+                    <td>{{$user->user_role->role_type}}</td>
+                    <td>{{$user->email}}</td>
                     <td style="display: flex;">
-                    @if ($seller->email_verified === null)
-                        <a href="{{route('seller.approved',$seller->id)}}"><button class="btn btn-primary">Approved</button></a>
+                    @if ($user->email_verified === null)
+                        <a href="{{route('user.approved',$user->id)}}"><button class="btn btn-primary">Approved</button></a>
                     @else
-                        <a href="{{route('seller.disapproved',$seller->id)}}"><button class="btn btn-danger">Disapproved</button></a>
+                        <a href="{{route('user.disapproved',$user->id)}}"><button class="btn btn-danger">Disapproved</button></a>
                     @endif
-                    <a href="{{route('seller.permission',$seller->id)}}"><button class="btn btn-success">Permission</button></a>
+                    <a href="{{route('user.permission',$user->id)}}"><button class="btn btn-success">Permission</button></a>
                     </td>
                 </tr>
             @endforeach

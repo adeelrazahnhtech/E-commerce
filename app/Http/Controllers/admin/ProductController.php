@@ -4,9 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\SellerPermission;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\SubAdmin;
+use App\Policies\ProductPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
@@ -25,6 +27,7 @@ class ProductController extends Controller
 
   public function sellerIndex()
   {
+    // $this->authorize('index', Product::class);
     // $products = Product::with('category', 'seller')->where('seller_id', auth('seller')->id())->get();
     $products = auth('seller')->user()->products;
     return view('seller.product.list', compact('products'));
@@ -42,12 +45,15 @@ class ProductController extends Controller
     $sellers = User::get()->where('role', 2);
     $data['sellers'] = $sellers;
     $data['categories'] = $categories;
-
+    
     return view('admin.product.create', $data);
   }
 
-  public function seller_create()
+  public function sellerCreate()
   {
+
+    // $this->authorize('create', Product::class);
+
     $categories = Category::orderBy('name', 'ASC')->get();
     $data['categories'] = $categories;
 
@@ -74,12 +80,15 @@ class ProductController extends Controller
       // 'seller_id'   => 'required',
         ]);
 
+        
+        
 
         
         
         $validatedData = $validator->validated();
         if ($validator->passes()) {
           if(auth('seller')->check()){
+            $this->authorize('store', Product::class);
             $validatedData['seller_id'] =  auth('seller')->id();
             
           }elseif(auth('sub_admin')->check()){
@@ -125,6 +134,8 @@ class ProductController extends Controller
 
   public function seller_edit($productId)
   {
+    // $this->authorize('edit', Product::class);
+
     $product = Product::find($productId);
     $categories = Category::orderBy('name', 'ASC')->get();
     if (empty($product)) {
@@ -137,6 +148,8 @@ class ProductController extends Controller
 
   public function update(Request $request, $productId)
   {
+
+    $this->authorize('update', product::class);
     
     $product = Product::find($productId);
     $validator = Validator::make($request->all(), [
@@ -166,14 +179,14 @@ class ProductController extends Controller
   public function destroy($productId)
   {
     if (auth('seller')->check()) {
+      //policies via controller not authroize for url
+      $this->authorize('destroy',Product::class);
       $product = auth('seller')->user()->products()->find(request()->product);
       if ($product) {
         // if(Gate::denies('is-admin')){   //gate via controller not authroize for url
           //   abort(403);
           // }
           
-          //policies via controller not authroize for url
-          $this->authorize('isAdmin',Product::class);
          
          $product->delete();
          return redirect()->route('products.index')->with('success', 'product deleted successfully');
