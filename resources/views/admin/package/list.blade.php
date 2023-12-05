@@ -8,7 +8,7 @@
                     <h1>Packages</h1>
                 </div>
                 <div class="col-sm-6 text-right">
-                         <a href="{{('packages.create')}}"><button class="btn btn-primary">Create</button></a>       
+                         <a href="{{route('packages.create')}}"><button class="btn btn-primary">Create</button></a>       
                  </div>
             </div>
          </div>

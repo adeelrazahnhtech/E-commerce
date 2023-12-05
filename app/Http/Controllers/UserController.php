@@ -10,9 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+      if($request->IsMethod('GET')){
+      // dd($request->method());
       $products = Product::with('reviews')->orderByDesc('id')->get();
+      }
         return view ('front.profile',compact('products'));
+
     }
 
     public function singleProduct($productId){

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\StoreProductRequest;
 use App\Models\Category;
 use App\Models\SellerPermission;
 use App\Models\User;
@@ -68,25 +69,13 @@ class ProductController extends Controller
     return view('sub_admin.product.create', $data);
   }
 
-  public function store(Request $request)
+  public function store(StoreProductRequest $request)
   {
-    $validator = Validator::make($request->all(), [
-      'title' => 'required|min:3',
-      'description' => 'required',
-      'price' => 'required|numeric',
-      'track_qty' => 'required|numeric',
-      'status'    => 'required',
-      'category_id' => 'required',
-      // 'seller_id'   => 'required',
-        ]);
+   
 
-        
+    $validatedData = $request->validated();
         
 
-        
-        
-        $validatedData = $validator->validated();
-        if ($validator->passes()) {
           if(auth('seller')->check()){
             $this->authorize('store', Product::class);
             $validatedData['seller_id'] =  auth('seller')->id();
@@ -96,6 +85,7 @@ class ProductController extends Controller
           }else{
             $validatedData['seller_id'] = auth('seller')->check() ? auth('seller')->id() : $request->seller_id;
           }
+          
       $product = Product::create($validatedData);
     
       if(auth('seller')->check())
@@ -111,9 +101,7 @@ class ProductController extends Controller
       flash()->addSuccess('Product created successfully');
       return redirect()->route('products.index');
 
-    } else {
-      return redirect()->back()->withErrors($validator)->withInput();
-    }
+ 
   }
 
   public function edit($productId)
