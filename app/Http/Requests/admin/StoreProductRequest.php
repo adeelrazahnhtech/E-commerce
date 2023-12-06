@@ -3,6 +3,8 @@
 namespace App\Http\Requests\admin;
 
 use App\Rules\admin\Lowercase;
+use App\Rules\admin\MinCharacters;
+use App\Rules\admin\NumericValue;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProductRequest extends FormRequest
@@ -23,10 +25,10 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|min:3',
+            'title' => ['required','min:3'],
             'description' => ['required',new Lowercase],
-            'price' => 'required|numeric',
-            'track_qty' => 'required|numeric',
+            'price' => ['required',new NumericValue],
+            'track_qty' => ['required',new NumericValue],
             'status'    => 'required',
             'category_id' => 'required',
         ];

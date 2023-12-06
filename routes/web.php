@@ -1,5 +1,6 @@
 <?php
 
+use App\Facade\DateClassFacade;
 use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\HomeController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\UserPackageController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\UserReviewController;
 use Illuminate\Support\Facades\Route;
+use App\Facade\DateClass;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +34,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/facade-date', function () {
+    $getData = DateClassFacade::dateFormatYMD('10/21/2023');
+    return $getData;
 });
 
 //user account

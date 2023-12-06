@@ -5,7 +5,7 @@ namespace App\Rules\admin;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class Lowercase implements ValidationRule
+class Uppercase implements ValidationRule
 {
     /**
      * Run the validation rule.
@@ -14,8 +14,8 @@ class Lowercase implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if(!preg_match('/[a-z]/',$value)){
-       $fail('The :attribute must be at least one lowercase letter.');  
+        if(strtoupper($value) != $value){
+            $fail('the :attribute must be uppercase');
         }
     }
 }

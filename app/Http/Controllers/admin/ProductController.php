@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\SellerPermission;
 use App\Models\User;
 use App\Models\Product;
+// use App\Models\SellerPermission; 
 use App\Models\SubAdmin;
 use App\Policies\ProductPolicy;
 use Illuminate\Http\Request;
@@ -50,6 +51,7 @@ class ProductController extends Controller
     return view('admin.product.create', $data);
   }
 
+  // public function sellerCreate()
   public function sellerCreate()
   {
 
@@ -71,7 +73,8 @@ class ProductController extends Controller
 
   public function store(StoreProductRequest $request)
   {
-   
+    
+
 
     $validatedData = $request->validated();
         

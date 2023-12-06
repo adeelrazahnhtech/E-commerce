@@ -8,6 +8,7 @@
             <h1>Products</h1>
         </div>
         <div class="col-sm-6 text-right">
+            {{-- @can('productStore') --}}
                  <a href="{{route('seller.products.create')}}"><button class="btn btn-primary">Add</button></a>       
          </div>
     </div>
