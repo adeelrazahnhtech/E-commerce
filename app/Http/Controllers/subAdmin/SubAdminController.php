@@ -5,6 +5,7 @@ namespace App\Http\Controllers\subAdmin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthenticateSubAdminRequest;
 use App\Http\Requests\StoreSubAdminRequest;
+use App\Jobs\EmailVerifiedJob;
 use App\Mail\EmailVerifiedMail;
 use App\Models\Role;
 use App\Models\SubAdmin;
@@ -21,7 +22,7 @@ class SubAdminController extends Controller
     }
 
     public function process(StoreSubAdminRequest $request){
-   $validatedData = $request->validated();
+            $validatedData = $request->validated();
    
            
            if(empty($validatedData)){
@@ -30,7 +31,8 @@ class SubAdminController extends Controller
                $validatedData['token'] = uniqid();
                $user = SubAdmin::create($validatedData);
    
-           Mail::to($user->email)->send(new EmailVerifiedMail($user));
+        //    Mail::to($user->email)->send(new EmailVerifiedMail($user));
+        EmailVerifiedJob::dispatch($user)->onQueue('emails');
    
                return redirect()->route('sub_admin.register')->with('success','Account register please wait for account approval');
    

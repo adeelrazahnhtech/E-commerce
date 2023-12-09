@@ -13,7 +13,7 @@ class StoreSellerRequest extends FormRequest
     {
 
         return [
-            'name' => 'trim|escape|capitalize',
+            'name' => 'trim|escape|lowercase',
             'email' => 'trim|lowercase',
         ];
     }

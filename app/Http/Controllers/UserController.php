@@ -23,8 +23,6 @@ class UserController extends Controller
 
     public function singleProduct($productId){
       $product = Product::with('orders')->with('reviews')->findOrFail($productId);
-      // dd($product);
-      // dd($product);
       // dd(auth()->user()->order);
       // dd(auth()->user()->review);
       //  && !auth()->user()->review

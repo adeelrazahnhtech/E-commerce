@@ -36,10 +36,11 @@ use App\Facade\DateClass;
 
 // Route::get('/', function () {
 //     return view('welcome');
-// });
+// });   
 
+//custom facade
 Route::get('/facade-date', function () {
-    $getData = DateClassFacade::dateFormatYMD('10/21/2023');
+    $getData = DateClassFacade::dateFormatYMD('10/21/2024');
     return $getData;
 });
 

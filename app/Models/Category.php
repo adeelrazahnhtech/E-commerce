@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+    protected $fillable = [
+     'name',
+     'image',
+    ];
+
     public function setNameAttribute($value){    // mutator
         $this->attributes['name'] = strtoupper($value);
     }
